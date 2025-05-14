@@ -1,0 +1,58 @@
+{
+  "name": "naija-geo",
+  "version": "1.0.0",
+  "description": "Nigeria geographical data - states, cities & LGAs",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "prepublish": " npm run build",
+    "format": "prettier --write src/**/*.ts"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "testMatch": [
+      "**/__tests__/**/*.test.ts"
+    ]
+  },
+  "keywords": [
+    "nigeria",
+    "geography",
+    "states",
+    "lga",
+    "naija",
+    "locations"
+  ],
+  "author": "Alfred Nwanowai <codeauthor.dev@gmail.com> (https://x.com/chiTheDev)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zuxcode/niaja-geo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zuxcode/naija-geo/issues"
+  },
+  "homepage": "https://github.com/zuxcode/naija-geo#readme",
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "jest": "^29.7.0",
+    "prettier": "^3.1.1",
+    "ts-jest": "^29.3.2",
+    "typescript": "^5.3.2"
+  },
+  "files": [
+    "dist/**/*"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

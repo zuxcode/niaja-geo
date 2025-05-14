@@ -1,0 +1,41 @@
+# Source files
+src/
+tsconfig.json
+*.ts
+*.tsx
+
+# Tests
+__tests__/
+*.test.*
+jest.config.js
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+.travis.yml
+
+# Documentation
+docs/
+examples/
+CHANGELOG.md
+
+# Development
+.eslintrc
+.prettierrc
+.editorconfig
+
+# Git
+.git/
+.gitignore
+
+# Lockfiles
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build scripts
+rollup.config.js
+webpack.config.js
+
+# Other
+.npmrc
