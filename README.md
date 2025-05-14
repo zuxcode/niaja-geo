@@ -1,88 +1,154 @@
-# 🇳🇬 Naija Geo [![npm version](https://img.shields.io/npm/v/naija-geo.svg?style=flat-square)](https://www.npmjs.com/package/naija-geo) [![npm downloads](https://img.shields.io/npm/dt/naija-geo.svg?style=flat-square)](https://www.npmjs.com/package/naija-geo)
+```markdown
+# 🇳🇬 Nigeria Geo [![npm version](https://img.shields.io/npm/v/nigeria-geo.svg?style=flat-square)](https://www.npmjs.com/package/nigeria-geo) 
+[![npm downloads](https://img.shields.io/npm/dt/nigeria-geo.svg?style=flat-square)](https://npmjs.com/package/nigeria-geo)
 
-A comprehensive Nigeria geographical data package providing states, cities, Local Government Areas (LGAs), and senatorial districts.
-
-![Nigeria Map Visualization](https://via.placeholder.com/800x400.png?text=Nigeria+Geo+Data+Visualization) *Add actual map image later*
+A comprehensive Nigeria geographical data package providing states, Local Government Areas (LGAs), and senatorial districts.
 
 ## Features
 
-- 🗺️ All 36 states + Federal Capital Territory (FCT)
-- 🏙️ Cities and urban areas
+- 📌 All 36 states + Federal Capital Territory (FCT)
 - 🏛️ Local Government Areas (LGAs)
-- 🏛️ Senatorial Districts
-- 📦 Lightweight (under 50KB)
-- 🦾 TypeScript support
-- 📅 Regularly updated data
+- 🗳️ Senatorial Districts
+- 🔍 Case-insensitive search
+- 🦾 Full TypeScript support
+- 📦 Lightweight (~50KB gzipped)
 
 ## Installation
 
 ```bash
-npm install naija-geo
+npm install nigeria-geo
 # or
-yarn add naija-geo
+yarn add nigeria-geo
 # or
-pnpm add naija-geo
+pnpm add nigeria-geo
+```
 
 ## Usage
 
+### Basic Usage
+
 ```javascript
-const { getStates, getCities, getLGAs } = require('naija-geo');
+import { niajaGeo } from 'nigeria-geo';
 
 // Get all states
-const states = getStates();
-console.log(states);
+const allStates = niajaGeo.getStates();
 
-// Get cities in a state
-const abiaCities = getCities('Abia');
-console.log(abiaCities);
+// Get state details
+const lagosState = niajaGeo.getState('Lagos');
 
-// Get LGAs in a state
-const lagosLGAs = getLGAs('Lagos');
-console.log(lagosLGAs);
+// Get LGAs with duplicates removed
+const riversLgas = niajaGeo.getLgas('Rivers');
+
+// Find state by LGA
+const state = niajaGeo.getStateByLga('Agege'); // Returns Lagos
 ```
 
-## API
+### Class-based Initialization
+
+```typescript
+import NiajaGeo from 'nigeria-geo';
+
+const customGeo = new NiajaGeo();
+const kanoDistricts = customGeo.getDistricts('Kano');
+```
+
+## API Reference
 
 ### `getStates()`
-Returns an array of all 36 states + FCT
 
-### `getCities(stateName: string)`
-Returns cities in a specified state
+**Returns**: `NiajaState[]`  
+Get all Nigerian states with metadata:
 
-### `getLGAs(stateName: string)`
-Returns Local Government Areas in a specified state
-
-## Data Structure
-All methods return arrays of objects with:
 ```typescript
-{
-  name: string;
-  code?: string; // State code where applicable
-  lgas?: string[]; // Only in state objects
+interface NiajaState {
+  state: string;
+  senatorialDistricts: string[];
+  lgas: string[];
 }
 ```
 
+### `getState(stateName: string)`
+
+**Parameters**:  
+- `stateName`: Case-insensitive state name  
+
+**Returns**: `NiajaState | null`  
+
+```javascript
+const abiaState = niajaGeo.getState('abia'); // Case-insensitive
+```
+
+### `getDistricts(stateName: string)`
+
+**Returns**: `string[]` of senatorial districts  
+```javascript
+const districts = niajaGeo.getDistricts('Oyo');
+```
+
+### `getLgas(stateName: string)`
+
+**Returns**: Unique combination of LGAs and districts (`string[]`)  
+```javascript
+const lgas = niajaGeo.getLgas('Kano');
+```
+
+### `getStateByLga(lgaName: string)`
+
+**Parameters**:  
+- `lgaName`: Case-insensitive LGA name  
+
+**Returns**: `NiajaState | null`  
+```javascript
+const state = niajaGeo.getStateByLga('IKEJA'); // Returns Lagos
+```
+
+## Data Structure Example
+
+```typescript
+{
+  state: 'Lagos',
+  senatorialDistricts: ['Lagos West', 'Lagos Central', 'Lagos East'],
+  lgas: [
+    'Agege',
+    'Ajeromi-Ifelodun',
+    'Alimosho',
+    'Amuwo-Odofin',
+    // ... full list
+  ]
+}
+```
+
+## TypeScript Support
+
+The package includes full type definitions:
+
+```typescript
+import type { NiajaState } from 'nigeria-geo';
+```
+
 ## Contributing
-Contributions are welcome! Please ensure:
-1. Data accuracy from reliable sources
-2. Follow the existing data structure format
-3. Update tests accordingly
+
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
+
+1. Verify data from [official sources](https://nigerianstat.gov.ng/)
+2. Update data in `src/config.ts`
+3. Add/update tests
+4. Submit PR with documentation
 
 ```bash
-# Development setup
-git clone https://github.com/zuxcode/naija-geo.git
-cd naija-geo
+git clone https://github.com/zuxcode/nigeria-geo.git
+cd nigeria-geo
 npm install
+npm test
 ```
 
 ## License
-MIT © [Alfred Nwanowai](https://github.com/zuxcode)
 
-## Acknowledgements
-- Nigerian Geographical Data Sources
-- Community contributors
+MIT © [Alfred Nwanowai](https://github.com/zuxcode)  
+**Maintainer**: [@chiTheDev](https://twitter.com/chiTheDev)
 
 ---
 
-**Maintained by** [Alfred Nwanowai](https://github.com/zuxcode)  
-**Stay Connected** → [![Twitter](https://img.shields.io/twitter/follow/chiTheDev?style=social)](https://twitter.com/chiTheDev)
+**[📚 Full Documentation](https://github.com/zuxcode/nigeria-geo#readme)** | 
+**[🐛 Report Issue](https://github.com/zuxcode/nigeria-geo/issues)** | 
+**[💡 Feature Request](https://github.com/zuxcode/nigeria-geo/discussions)**
